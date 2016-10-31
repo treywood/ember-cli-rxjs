@@ -10,7 +10,7 @@ export default Ember.Route.extend({
     const pos = x => x * 10;
     const neg = x => x * -10;
 
-    return this.observeAction('reverse')
+    return this.observable.action('reverse')
       .scan(op => op === pos ? neg : pos, pos)
       .startWith(pos)
       .combineLatest(Rx.Observable.interval(1000))
