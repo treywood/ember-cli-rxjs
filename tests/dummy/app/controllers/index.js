@@ -3,9 +3,14 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 
   init() {
-    Rx.Observable.interval(1000).subscribe(i => {
-      this.set('number', i);
-    });
+    this._super(...arguments);
+
+    this.set('multiplier', 1);
+
+    this.observable.property('multiplier')
+      .combineLatest(Rx.Observable.interval(1000))
+      .map(([m, i]) => m * i)
+      .subscribe(x => this.set('number', x));
   }
 
 });
