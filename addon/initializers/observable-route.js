@@ -12,7 +12,7 @@ export function initialize() {
       if (model && typeof model.subscribe === "function") {
         model.subscribe(x => controller.set('model', x));
       } else {
-        controller.set('model', model);
+        this._super(...arguments);
       }
     }
 
