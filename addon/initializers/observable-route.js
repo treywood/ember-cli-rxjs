@@ -10,15 +10,7 @@ export function initialize() {
       } else {
         controller.set('model', model);
       }
-    },
-
-    __bindObservables: Ember.on('init', function() {
-      for (let m in this.observable) {
-        if (this.observable.hasOwnProperty(m)) {
-          this.observable[m] = this.observable[m].bind(this);
-        }
-      }
-    })
+    }
 
   });
 }

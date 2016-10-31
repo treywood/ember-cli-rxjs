@@ -1,36 +1,35 @@
 import Ember from 'ember';
 import ObserveActionMixin from 'ember-cli-rxjs/mixins/observe-action';
 
+function property(propertyName) {
+  let s = this._propSubjects[propertyName] || (this._propSubjects[propertyName] = new Rx.Subject());
+  this.addObserver(propertyName, () => {
+    try {
+      s.onNext(this.get(propertyName));
+    } catch (e) {
+      s.onError(e);
+    }
+  });
+  return s.asObservable();
+}
+
+function properties(...props) {
+  return Rx.Observable.combineLatest(props.map(p => this.observable.property(p)));
+}
+
 export function initialize() {
 
   Ember.Controller.reopen(ObserveActionMixin, {
 
-    _propSubjects: {},
-
-    observable: {
-      property(propertyName) {
-        let s = this._propSubjects[propertyName] || (this._propSubjects[propertyName] = new Rx.Subject());
-        this.addObserver(propertyName, () => {
-          try {
-            s.onNext(this.get(propertyName));
-          } catch (e) {
-            s.onError(e);
-          }
-        });
-        return s.asObservable();
-      },
-
-      properties(...props) {
-        return Rx.Observable.combineLatest(props.map(p => this.observable.property(p)));
+    _observableSetup: Ember.on('init', function() {
+      this._super();
+      if (!this.observable) {
+        this.observable = {};
       }
-    },
 
-    __bindObservables: Ember.on('init', function() {
-      for (let m in this.observable) {
-        if (this.observable.hasOwnProperty(m)) {
-          this.observable[m] = this.observable[m].bind(this);
-        }
-      }
+      this._propSubjects = {};
+      this.observable.property = property.bind(this);
+      this.observable.properties = properties.bind(this);
     })
 
   });
