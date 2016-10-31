@@ -17,6 +17,25 @@ function action(action) {
   return s.asObservable();
 }
 
+function property(propertyName) {
+  let s = this._propSubjects[propertyName];
+  if (!s) {
+     s = (this._propSubjects[propertyName] = new Rx.Subject());
+     this.addObserver(propertyName, () => {
+       try {
+         s.onNext(this.get(propertyName));
+       } catch (e) {
+         s.onError(e);
+       }
+     });
+  }
+  return s.asObservable().startWith(this.get(propertyName));
+}
+
+function properties(...props) {
+  return Rx.Observable.combineLatest(props.map(p => this.observable.property(p)));
+}
+
 export default Ember.Mixin.create({
 
   init() {
@@ -27,7 +46,11 @@ export default Ember.Mixin.create({
     }
 
     this._actionSubjects = {};
+    this._propSubjects = {};
+
     this.observable.action = action.bind(this);
+    this.observable.property = property.bind(this);
+    this.observable.properties = properties.bind(this);
   }
 
 });

@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import ObserveActionMixin from 'ember-cli-rxjs/mixins/observe-action';
+import ObservableMixin from 'ember-cli-rxjs/mixins/observable';
 
 export function initialize() {
-  Ember.Route.reopen(ObserveActionMixin, {
+  Ember.Route.reopen(ObservableMixin, {
 
     init() {
       this._super(...arguments);
@@ -17,9 +17,12 @@ export function initialize() {
     }
 
   });
+
+  Ember.Controller.reopen(ObservableMixin);
+  Ember.Component.reopen(ObservableMixin);
 }
 
 export default {
-  name: 'observable-route',
+  name: 'observable',
   initialize
 };
