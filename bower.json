@@ -2,6 +2,7 @@
   "name": "ember-cli-rxjs",
   "dependencies": {
     "ember": "~2.8.0",
-    "ember-cli-shims": "0.1.1"
+    "ember-cli-shims": "0.1.1",
+    "rxjs": "^4.1.0"
   }
 }
