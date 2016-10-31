@@ -22,7 +22,6 @@ export function initialize() {
   Ember.Controller.reopen(ObserveActionMixin, {
 
     _observableSetup: Ember.on('init', function() {
-      this._super();
       if (!this.observable) {
         this.observable = {};
       }

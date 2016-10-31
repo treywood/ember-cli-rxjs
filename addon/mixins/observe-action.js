@@ -17,7 +17,6 @@ function action(action) {
 export default Ember.Mixin.create({
 
   _initObservable: Ember.on('init', function() {
-
     if (!this.observable) {
       this.observable = {};
     }

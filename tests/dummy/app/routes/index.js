@@ -2,10 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  init() {
-
-  },
-
   model() {
     const pos = x => x * 10;
     const neg = x => x * -10;
