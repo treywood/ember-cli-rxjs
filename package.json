@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-rxjs",
   "version": "0.1.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "RxJS utilities for Ember.",
   "directories": {
     "doc": "doc",
     "test": "tests"
