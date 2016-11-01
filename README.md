@@ -1,27 +1,24 @@
-# Ember-cli-rxjs
+# ember-cli-rxjs
 
-This README outlines the details of collaborating on this Ember addon.
+## Description
+Exposes some simple utilities for creating and consuming RxJs Observables within your Ember application.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd ember-cli-rxjs`
-* `npm install`
-* `bower install`
+```
+$ ember install ember-cli-rxjs
+```
 
-## Running
+## Usage
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+After installing the addon, you will have access to a few utilities for creating Observables from Controllers, Routes, and Components. These utilities live in the `this.observable` namespace from within your objects.
 
-## Running Tests
+This addon also enables you to return an Observable from your Routes' `model` hook (as you might return a Promise). If your `model` hook returns an Observable, it will be subscribed to, updating the model with every emitted value.
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
+# Utilities
 
-## Building
+`this.observable.property(propertyName)`: Observe the value of a given property and emit new values as the property value changes.
 
-* `ember build`
+`this.observable.properties(prop1, prop2, ...)`: Observe multiple property values a la `Rx.Observable.combineLatest`.
 
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+`this.observable.action(actionName)`: Observe an action, and emit a message whenever the action is invoked. If you define an action handler in the `actions` hash, and observe that action with this method, the handler will be invoked before the Observable emits its message.
