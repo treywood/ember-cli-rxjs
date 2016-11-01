@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Rx from 'rxjs/Rx';
 
 export default Ember.Route.extend({
 

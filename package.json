@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-rxjs",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "RxJS utilities for Ember.",
   "directories": {
     "doc": "doc",
@@ -41,10 +41,14 @@
     "rx": "^4.1.0"
   },
   "keywords": [
-    "ember-addon","rxjs","observable","ember"
+    "ember-addon",
+    "rxjs",
+    "observable",
+    "ember"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.1.6"
+    "ember-cli-babel": "^5.1.6",
+    "ember-rx-shim": "^0.1.4"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

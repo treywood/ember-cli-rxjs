@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Rx from 'rxjs/Rx';
 
 function action(action) {
   let existing = this.actions[action] || function() {};
@@ -8,9 +9,9 @@ function action(action) {
      this.actions[action] = function() {
        try {
          existing.apply(this, arguments);
-         s.onNext(arguments[0]);
+         s.next(arguments[0]);
        } catch(e) {
-         s.onError(e);
+         s.error(e);
        }
      };
   }
@@ -23,9 +24,9 @@ function property(propertyName) {
      s = (this._propSubjects[propertyName] = new Rx.Subject());
      this.addObserver(propertyName, () => {
        try {
-         s.onNext(this.get(propertyName));
+         s.next(this.get(propertyName));
        } catch (e) {
-         s.onError(e);
+         s.error(e);
        }
      });
   }
