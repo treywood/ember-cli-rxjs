@@ -14,6 +14,17 @@ export default Ember.Controller.extend({
       .combineLatest(interval(1000))
       .map(([m, i]) => m * i)
       .subscribe(x => this.set('number', x));
+
+    this.observable.action('bubble', true).subscribe(() => {
+      console.log('this should still bubble');
+    });
+  },
+
+  actions: {
+    bubble() {
+      console.log('controller handled it, bubbling!');
+      return true;
+    }
   }
 
 });

@@ -31,4 +31,4 @@ More on that [here](https://github.com/ReactiveX/rxjs#installation-and-usage).
 
 `this.observable.properties(prop1, prop2, ...)`: Observe multiple property values a la `Rx.Observable.combineLatest`.
 
-`this.observable.action(actionName)`: Observe an action, and emit a message whenever the action is invoked. If you define an action handler in the `actions` hash, and observe that action with this method, the handler will be invoked before the Observable emits its message.
+`this.observable.action(actionName, bubble)`: Observe an action, and emit a message whenever the action is invoked. If you define an action handler in the `actions` hash, and observe that action with this method, the handler will be invoked before the Observable emits its message. If `bubble` is `true`, the action will bubble. If an action handler exists, the `bubble` parameter is ignored and bubbling should be determined by the handler.

@@ -3,15 +3,16 @@ import { Subject } from 'rxjs/Subject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import 'rxjs/add/operator/startWith';
 
-function action(actionName) {
-  let existing = this.actions[actionName] || function() {};
+function action(actionName, bubble = false) {
+  let existing = this.actions[actionName] || (() => bubble);
   let s = this._actionSubjects[actionName];
   if (!s) {
      s = (this._actionSubjects[actionName] = new Subject());
      this.actions[actionName] = function() {
        try {
-         existing.apply(this, arguments);
+         let result = existing.apply(this, arguments);
          s.next(arguments[0]);
+         return result;
        } catch(e) {
          s.error(e);
        }
@@ -48,7 +49,7 @@ export default Ember.Mixin.create({
     this._propSubjects = {};
 
     this.observable = {
-      action: (actionName) => action.call(this, actionName),
+      action: (actionName, bubble) => action.call(this, actionName, bubble),
       property: (propertyName) => property.call(this, propertyName),
       properties: (...props) => properties.apply(this, props)
     };

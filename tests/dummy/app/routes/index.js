@@ -26,6 +26,9 @@ export default Ember.Route.extend({
   actions: {
     reverse() {
       console.log('reversed it');
+    },
+    bubble() {
+      console.log('route hanled it!');
     }
   }
 
