@@ -21,6 +21,8 @@ You can import RxJs from the `rxjs` module:
 import Rx from 'rxjs/Rx';
 ```
 
+Note that - for the sake of your build sizes - only the operators and observables necessary to implement the utilities below are imported within the addon. This means that in order to use the majority of RxJs' operators, you will need to import them (or everything from ```rxjs/Rx```) in your own app.
+
 More on that [here](https://github.com/ReactiveX/rxjs#installation-and-usage).
 
 ## Utilities

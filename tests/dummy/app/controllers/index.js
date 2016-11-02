@@ -1,5 +1,7 @@
 import Ember from 'ember';
-import Rx from 'rxjs/Rx';
+import { interval } from 'rxjs/observable/interval';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/combineLatest';
 
 export default Ember.Controller.extend({
 
@@ -9,7 +11,7 @@ export default Ember.Controller.extend({
     this.set('multiplier', 1);
 
     this.observable.property('multiplier')
-      .combineLatest(Rx.Observable.interval(1000))
+      .combineLatest(interval(1000))
       .map(([m, i]) => m * i)
       .subscribe(x => this.set('number', x));
   }
