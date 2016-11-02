@@ -15,7 +15,15 @@ After installing the addon, you will have access to a few utilities for creating
 
 This addon also enables you to return an Observable from your Routes' `model` hook (as you might return a Promise). If your `model` hook returns an Observable, it will be subscribed to, updating the model with every emitted value.
 
-# Utilities
+You can import RxJs from the `rxjs` module:
+
+```
+import Rx from 'rxjs/Rx';
+```
+
+More on that [here](https://github.com/ReactiveX/rxjs#installation-and-usage).
+
+## Utilities
 
 `this.observable.property(propertyName)`: Observe the value of a given property and emit new values as the property value changes.
 

@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import Rx from 'rxjs/Rx';
 
-function action(action) {
-  let existing = this.actions[action] || function() {};
-  let s = this._actionSubjects[action];
+function action(actionName) {
+  let existing = this.actions[actionName] || function() {};
+  let s = this._actionSubjects[actionName];
   if (!s) {
-     s = (this._actionSubjects[action] = new Rx.Subject());
-     this.actions[action] = function() {
+     s = (this._actionSubjects[actionName] = new Rx.Subject());
+     this.actions[actionName] = function() {
        try {
          existing.apply(this, arguments);
          s.next(arguments[0]);
@@ -42,16 +42,14 @@ export default Ember.Mixin.create({
   init() {
     this._super(...arguments);
 
-    if (!this.observable) {
-      this.observable = {};
-    }
-
     this._actionSubjects = {};
     this._propSubjects = {};
 
-    this.observable.action = action.bind(this);
-    this.observable.property = property.bind(this);
-    this.observable.properties = properties.bind(this);
+    this.observable = {
+      action: (actionName) => action.call(this, actionName),
+      property: (propertyName) => property.call(this, propertyName),
+      properties: (...props) => properties.apply(this, props)
+    };
   }
 
 });
