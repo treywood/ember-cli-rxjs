@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Rx from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 export default Ember.Route.extend({
 
@@ -10,7 +10,7 @@ export default Ember.Route.extend({
     return this.observable.action('reverse')
       .scan(op => op === pos ? neg : pos, pos)
       .startWith(pos)
-      .combineLatest(Rx.Observable.interval(1000))
+      .combineLatest(Observable.interval(1000))
       .map(([op, n]) => op(n));
   },
 

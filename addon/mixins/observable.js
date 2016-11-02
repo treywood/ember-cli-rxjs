@@ -1,11 +1,12 @@
 import Ember from 'ember';
-import Rx from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 function action(actionName) {
   let existing = this.actions[actionName] || function() {};
   let s = this._actionSubjects[actionName];
   if (!s) {
-     s = (this._actionSubjects[actionName] = new Rx.Subject());
+     s = (this._actionSubjects[actionName] = new Subject());
      this.actions[actionName] = function() {
        try {
          existing.apply(this, arguments);
@@ -21,7 +22,7 @@ function action(actionName) {
 function property(propertyName) {
   let s = this._propSubjects[propertyName];
   if (!s) {
-     s = (this._propSubjects[propertyName] = new Rx.Subject());
+     s = (this._propSubjects[propertyName] = new Subject());
      this.addObserver(propertyName, () => {
        try {
          s.next(this.get(propertyName));
@@ -34,7 +35,7 @@ function property(propertyName) {
 }
 
 function properties(...props) {
-  return Rx.Observable.combineLatest(props.map(p => this.observable.property(p)));
+  return Observable.combineLatest(props.map(p => this.observable.property(p)));
 }
 
 export default Ember.Mixin.create({
