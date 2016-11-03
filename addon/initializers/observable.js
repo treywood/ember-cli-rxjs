@@ -22,10 +22,10 @@ export function initialize() {
 
     actions: {
       willTransition() {
+        this._super(...arguments);
         if (this._modelSubscription) {
           this._modelSubscription.unsubscribe();
         }
-        this._super(...arguments);
       }
     }
 

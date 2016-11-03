@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-rxjs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "RxJS utilities for Ember.",
   "directories": {
     "doc": "doc",
