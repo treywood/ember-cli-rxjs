@@ -3,8 +3,8 @@ import { Subject } from 'rxjs/Subject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import 'rxjs/add/operator/startWith';
 
-function action(actionName, bubble = false) {
-  let existing = this.actions[actionName] || (() => bubble);
+function action(actionName) {
+  let existing = this.actions[actionName] || function() {};
   let s = this._actionSubjects[actionName];
   if (!s) {
      s = (this._actionSubjects[actionName] = new Subject());

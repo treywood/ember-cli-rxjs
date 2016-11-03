@@ -28,7 +28,10 @@ export default Ember.Route.extend({
       console.log('reversed it');
     },
     bubble() {
-      console.log('route hanled it!');
+      console.log('route handled it!');
+    },
+    notbubble() {
+      console.log('this should not log');
     }
   }
 

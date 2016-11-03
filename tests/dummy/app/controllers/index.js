@@ -15,8 +15,12 @@ export default Ember.Controller.extend({
       .map(([m, i]) => m * i)
       .subscribe(x => this.set('number', x));
 
-    this.observable.action('bubble', true).subscribe(() => {
-      console.log('this should still bubble');
+    this.observable.action('nobubble').subscribe(() => {
+      console.log('this should not bubble');
+    });
+
+    this.observable.action('bubble').subscribe(() => {
+      console.log('this should not bubble');
     });
   },
 
