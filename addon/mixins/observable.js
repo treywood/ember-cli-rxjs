@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
-import 'rxjs/add/operator/startWith';
 
 function action(actionName) {
   let existing = this.actions[actionName] || function() {};
@@ -24,7 +24,7 @@ function action(actionName) {
 function property(propertyName) {
   let s = this._propSubjects[propertyName];
   if (!s) {
-     s = (this._propSubjects[propertyName] = new Subject());
+     s = (this._propSubjects[propertyName] = new BehaviorSubject(this.get(propertyName)));
      this.addObserver(propertyName, () => {
        try {
          s.next(this.get(propertyName));
@@ -33,7 +33,7 @@ function property(propertyName) {
        }
      });
   }
-  return s.asObservable().startWith(this.get(propertyName));
+  return s.asObservable();
 }
 
 function properties(...props) {
