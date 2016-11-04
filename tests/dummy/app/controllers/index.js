@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
     });
 
     this.observable.action('bubble').subscribe(() => {
-      console.log('this should not bubble');
+      console.log('this should bubble');
     });
   },
 

@@ -35,7 +35,7 @@ export default Ember.Route.extend({
     },
     willTransition(transition) {
       this._super(transition);
-      if (confirm("abort?")) {
+      if (window.confirm("abort?")) {
         transition.abort();
       }
     }
