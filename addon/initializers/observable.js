@@ -21,10 +21,12 @@ export function initialize() {
     },
 
     actions: {
-      willTransition() {
-        this._super(...arguments);
+      willTransition(transition) {
+        this._super(transition);
         if (this._modelSubscription) {
-          this._modelSubscription.unsubscribe();
+          transition.then(() => {
+            this._modelSubscription.unsubscribe();
+          });
         }
       }
     }

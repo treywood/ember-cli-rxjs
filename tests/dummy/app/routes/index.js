@@ -32,6 +32,12 @@ export default Ember.Route.extend({
     },
     notbubble() {
       console.log('this should not log');
+    },
+    willTransition(transition) {
+      this._super(transition);
+      if (confirm("abort?")) {
+        transition.abort();
+      }
     }
   }
 
