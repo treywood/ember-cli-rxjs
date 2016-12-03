@@ -40,6 +40,12 @@ function property(propertyName) {
 
 function properties(...props) {
   return merge(...props.map(p => this.observable.property(p)))
+          /*
+            Skip all but 1 of the first emissions. The BehaviorSubjects backing
+            `this.observable.property` would otherwise cause all subscribers
+            to immediately receive `props.length` identical emissions upon subscription,
+            instead of just a single emission of the current values.
+          */
           .skip(props.length - 1)
           .map(() => this.getProperties(props));
 }
