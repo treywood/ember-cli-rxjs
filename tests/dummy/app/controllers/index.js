@@ -22,6 +22,15 @@ export default Ember.Controller.extend({
     this.observable.action('bubble').subscribe(() => {
       console.log('this should bubble');
     });
+
+    let properties = this.observable.properties('number','multiplier');
+
+    properties.subscribe(props => console.log(1, props));
+
+    setTimeout(() => {
+      properties.subscribe(props => console.log(2, props));
+    }, 2000);
+
   },
 
   actions: {

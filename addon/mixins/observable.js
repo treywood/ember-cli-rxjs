@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { combineLatest } from 'rxjs/observable/combineLatest';
+import { merge } from 'rxjs/observable/merge';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/skip';
 
 function action(actionName) {
   let existing = this.actions[actionName] || function() {};
@@ -37,7 +39,9 @@ function property(propertyName) {
 }
 
 function properties(...props) {
-  return combineLatest(props.map(p => this.observable.property(p)));
+  return merge(...props.map(p => this.observable.property(p)))
+          .skip(props.length - 1)
+          .map(() => this.getProperties(props));
 }
 
 export default Ember.Mixin.create({
