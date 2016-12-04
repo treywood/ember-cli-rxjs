@@ -41,3 +41,19 @@ test('this.observable.properties', function(assert) {
   subject.set('y', 'b');
   subject.set('x', '2');
 });
+
+test('this.observable.action', function(assert) {
+  let done = assert.async();
+
+  let ObserveActionRoute = Ember.Route.extend(ObservableMixin);
+  let subject = ObserveActionRoute.create();
+  assert.ok(subject);
+
+  let expected = { x: 1 };
+  subject.observable.action('test').subscribe(x => {
+    assert.deepEqual(x, expected);
+    done();
+  });
+
+  subject.send('test', { x: 1 });
+});
