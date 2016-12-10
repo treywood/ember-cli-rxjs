@@ -30,7 +30,7 @@ test('this.observable.properties', function(assert) {
   let subject = ObserveActionObject.create({ x: '1', y: 'a' });
   assert.ok(subject);
 
-  let expected = [['1','a'],['1','b'],['2','b']];
+  let expected = [{x:'1',y:'a'},{x:'1',y:'b'},{x:'2',y:'b'}];
   subject.observable.properties('x','y').subscribe(xs => {
     assert.deepEqual(xs, expected.shift());
     if (expected.length === 0) {
