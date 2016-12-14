@@ -1,33 +1,36 @@
 import Ember from 'ember';
 import ObservableMixin from 'ember-cli-rxjs/mixins/observable';
-import { Subscription } from 'rxjs/Subscription';
 
 export function initialize() {
   Ember.Route.reopen(ObservableMixin, {
 
     init() {
       this._super(...arguments);
+      this._subs = {};
     },
 
     setupController(controller, model) {
-      if (model && typeof model.subscribe === "function") {
-        this._modelSubscription = model.subscribe(x => controller.set('model', x));
-        this._modelSubscription.add(new Subscription(() => {
-          controller.set('model', undefined);
-        }));
+      if (model && typeof model.subscribe === 'function') {
+        this._modelObservable = model;
+        if (!this._subs[controller]) {
+          this.subscribeController(controller);
+        }
       } else {
         this._super(...arguments);
       }
     },
 
-    actions: {
-      willTransition(transition) {
-        this._super(transition);
-        if (this._modelSubscription) {
-          transition.then(() => {
-            this._modelSubscription.unsubscribe();
-          });
-        }
+    subscribeController(controller) {
+      if (this._modelObservable) {
+        this._subs[controller] =
+          this._modelObservable.subscribe(x => controller.set('model', x));
+      }
+    },
+
+    unsubscribeController(controller) {
+      if (this._subs[controller]) {
+        this._subs[controller].unsubscribe();
+        delete this._subs[controller];
       }
     }
 

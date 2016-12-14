@@ -34,9 +34,10 @@ export default Ember.Route.extend({
       console.log('this should not log');
     },
     willTransition(transition) {
-      this._super(transition);
-      if (window.confirm("abort?")) {
-        transition.abort();
+      if (window.confirm("reset?")) {
+        transition.then(() => {
+          this.unsubscribeController(this.controller);
+        });
       }
     }
   }
