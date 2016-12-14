@@ -49,7 +49,7 @@ export default Ember.Mixin.create({
     this._propSubjects = {};
 
     this.observable = {
-      action: (actionName, bubble) => action.call(this, actionName, bubble),
+      action: (actionName) => action.call(this, actionName),
       property: (propertyName) => property.call(this, propertyName),
       properties: (...props) => properties.apply(this, props)
     };
