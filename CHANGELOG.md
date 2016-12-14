@@ -14,5 +14,5 @@ Routes now have `subscribeController(controller)` and `unsubscribeController(con
 
 - `this.observable.properties` now emits an object hash of property values instead of an array
 
-[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/2.0.0...HEAD
+[Unreleased]: https://github.com/treywood/ember-cli-rxjs/compare/2.0.0...HEAD
 [2.0.0]: https://github.com/treywood/ember-cli-rxjs/compare/1.0.0...2.0.0
