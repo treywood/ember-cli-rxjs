@@ -5,12 +5,13 @@ import 'rxjs/add/operator/combineLatest';
 
 export default Ember.Controller.extend({
 
+  multiplier: 1,
+
   init() {
     this._super(...arguments);
 
-    this.set('multiplier', 1);
-
     this.observable.property('multiplier')
+      .map(x => parseInt(x))
       .combineLatest(interval(1000))
       .map(([m, i]) => m * i)
       .subscribe(x => this.set('number', x));
