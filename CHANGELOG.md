@@ -25,4 +25,4 @@ methods for managing subscriptions to an Observable model.
 [Unreleased]: https://github.com/treywood/ember-cli-rxjs/compare/2.1.0...HEAD
 [2.0.0]: https://github.com/treywood/ember-cli-rxjs/compare/1.0.0...2.0.0
 [2.1.0]: https://github.com/treywood/ember-cli-rxjs/compare/2.0.0...2.1.0
-[2.2.0]: https://github.com/treywood/ember-cli-rxjs/compare/2.0.0...2.2.0
+[2.2.0]: https://github.com/treywood/ember-cli-rxjs/compare/2.1.0...2.2.0
